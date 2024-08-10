@@ -1,4 +1,5 @@
 import tkinter as tk
+from io import StringIO
 from tkinter import ttk
 import pandas as pd
 
@@ -46,6 +47,7 @@ class SpreadsheetApp:
             entry.pack(side=tk.LEFT)
             self.entries.append(entry)
 
+        # add 按钮
         self.add_button = tk.Button(self.entry_frame, text="Add Row", command=self.add_row)
         self.add_button.pack(side=tk.LEFT)
 
@@ -53,6 +55,9 @@ class SpreadsheetApp:
         self.save_button = tk.Button(self.entry_frame, text="Save to CSV", command=self.save_to_csv)
         self.save_button.pack(side=tk.LEFT)
 
+        # 添加粘贴按钮
+        self.paste_button = tk.Button(self.entry_frame, text="Paste", command=self.paste_data)
+        self.paste_button.pack(side=tk.LEFT)
 
     def load_data(self):
         # 清除现有数据
@@ -62,6 +67,20 @@ class SpreadsheetApp:
         # 加载数据到表格
         for index, row in self.df.iterrows():
             self.tree.insert('', 'end', values=list(row))
+
+    def paste_data(self):
+        try:
+            # 从剪贴板获取数据
+            clipboard_data = self.root.clipboard_get()
+            # 将剪贴板数据转换为DataFrame
+            data = pd.read_csv(StringIO(clipboard_data), sep='\t')
+            # 更新DataFrame
+            self.df = data
+            # 重新加载数据
+            self.load_data()
+            print("Data pasted from clipboard")
+        except Exception as e:
+            print(f"Error pasting data: {e}")
 
     def add_row(self):
         new_row = {col: entry.get() for col, entry in zip(self.df.columns, self.entries)}
