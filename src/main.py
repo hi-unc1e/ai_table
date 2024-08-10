@@ -10,9 +10,12 @@ def test_main():
 
 
 def main():
+    print("on")
     controller = SpreadsheetController()
     controller.paste_from_clipboard()
     controller.show_view()  # 显示图形化界面
+    print("and on")
+
 
 
 if __name__ == "__main__":

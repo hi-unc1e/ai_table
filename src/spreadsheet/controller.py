@@ -17,6 +17,13 @@ class SpreadsheetController:
             return custom_sum(self.model, *args)
         # 其他自定义函数可以在这里添加
 
+    def run_custom_function(self, func_name, *args):
+        # 根据函数名调用相应的自定义函数
+        if func_name in self.custom_functions:
+            return self.custom_functions[func_name](self.model, *args)
+        else:
+            raise ValueError(f"Function {func_name} not found.")
+
     def show_view(self):
         self.view = SpreadsheetView(self)
         self.view.run()
