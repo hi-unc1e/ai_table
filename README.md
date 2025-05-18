@@ -11,3 +11,8 @@
 # devlog
 - 支持粘贴表格了，方式：点击 paste 按钮
 - 但是不支持直接编辑单元格，，有点问题。
+
+
+已用 Streamlit实现，近期会考虑开源。
+
+![image](https://github.com/user-attachments/assets/c4687c36-8a59-49d3-9080-df6509b073d0)
